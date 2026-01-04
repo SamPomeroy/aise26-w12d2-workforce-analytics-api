@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # redis for rate limiting
+  redis:
+    image: redis:7-alpine
+    container_name: workforce-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # main api service
+  api:
+    build: .
+    container_name: workforce-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./workforce_analytics.db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SECRET_KEY=${SECRET_KEY:-super-secret-key-change-in-production}
+      - DEBUG=True
+      - ENVIRONMENT=development
+    volumes:
+      - .:/app
+      - ./workforce_analytics.db:/app/workforce_analytics.db
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  redis_data:
+
+networks:
+  default:
+    name: workforce-network
