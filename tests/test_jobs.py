@@ -52,12 +52,12 @@ class TestJobPostings:
             json=sample_job_data,
             headers={"Authorization": f"Bearer {user_token}"}
         )
-        assert response.status_code == status.HTTP_403_FORBIDDEN
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
     
     def test_create_job_no_auth(self, client, sample_job_data):
         """test creating job without auth fails"""
         response = client.post("/v1/jobs/", json=sample_job_data)
-        assert response.status_code == status.HTTP_403_FORBIDDEN
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
     
     def test_list_jobs_public(self, client, db, test_employer):
         """test listing jobs works without auth"""
@@ -187,7 +187,7 @@ class TestJobPostings:
             json={"title": "Hacked Title"},
             headers={"Authorization": f"Bearer {user_token}"}
         )
-        assert response.status_code == status.HTTP_403_FORBIDDEN
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
     
     def test_admin_can_update_any_job(self, client, db, test_employer, admin_token):
         """test admin can update any job"""

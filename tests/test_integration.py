@@ -14,7 +14,7 @@ class TestIntegration:
             json={
                 "email": "workflow@example.com",
                 "username": "workflowemployer",
-                "password": "WorkflowPass123",
+                "password": "Pass1!",
                 "full_name": "Workflow Employer",
                 "role": "employer"
             }
@@ -26,7 +26,7 @@ class TestIntegration:
             "/v1/auth/login",
             json={
                 "username": "workflowemployer",
-                "password": "WorkflowPass123"
+                "password": "Pass1!"
             }
         )
         assert login_response.status_code == status.HTTP_200_OK

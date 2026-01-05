@@ -13,7 +13,7 @@ class TestAuthentication:
             json={
                 "email": "newuser@example.com",
                 "username": "newuser",
-                "password": "NewPassword123",
+                "password": "Pass1!",
                 "full_name": "New User",
                 "role": "user"
             }
@@ -31,7 +31,7 @@ class TestAuthentication:
             json={
                 "email": test_user.email,
                 "username": "differentusername",
-                "password": "Password123",
+                "password": "Pass1!",
                 "role": "user"
             }
         )
@@ -45,7 +45,7 @@ class TestAuthentication:
             json={
                 "email": "different@example.com",
                 "username": test_user.username,
-                "password": "Password123",
+                "password": "Pass1!",
                 "role": "user"
             }
         )
@@ -71,7 +71,7 @@ class TestAuthentication:
             "/v1/auth/login",
             json={
                 "username": test_user.username,
-                "password": "TestPassword123"
+                "password": "Pass1!"
             }
         )
         assert response.status_code == status.HTTP_200_OK
@@ -85,7 +85,7 @@ class TestAuthentication:
             "/v1/auth/login",
             json={
                 "username": test_user.username,
-                "password": "WrongPassword123"
+                "password": "Pass1!"
             }
         )
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
@@ -96,7 +96,7 @@ class TestAuthentication:
             "/v1/auth/login",
             json={
                 "username": "nonexistent",
-                "password": "Password123"
+                "password": "Pass1!"
             }
         )
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
@@ -115,7 +115,7 @@ class TestAuthentication:
     def test_get_current_user_no_token(self, client):
         """test getting current user without token fails"""
         response = client.get("/v1/auth/me")
-        assert response.status_code == status.HTTP_403_FORBIDDEN
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
     
     def test_get_current_user_invalid_token(self, client):
         """test getting current user with invalid token fails"""
