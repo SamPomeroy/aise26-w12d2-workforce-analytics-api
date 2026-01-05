@@ -1,57 +1,19 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-venv/
-env/
-ENV/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+# --- Local archives ---
+*.zip
 
-# Environment
-.env
-.venv
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Testing
-.pytest_cache/
+# --- Coverage & test artifacts ---
 .coverage
 htmlcov/
-*.cover
+.pytest_cache/
 
-# Database
+# --- Virtual environments ---
+venv/
+.env/
+.env.*
+
+# --- Local databases & outputs ---
 *.db
-*.sqlite
-*.sqlite3
-
-# Logs
-*.log
-logs/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Docker
-*.pid
+test_results.txt
+test_summary.txt
+#Archives
+*.zip
