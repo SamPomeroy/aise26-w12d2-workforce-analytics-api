@@ -9,4 +9,4 @@ bcrypt==4.0.1
 redis>=5.0.0
 httpx
 python-multipart
-pythonjsonlogger
+python-json-logger
