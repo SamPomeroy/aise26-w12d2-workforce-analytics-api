@@ -1,3 +1,4 @@
+from app.utils.security import get_password_hash
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -51,7 +52,8 @@ def test_user(db):
     user = User(
         email="test@example.com",
         username="testuser",
-        hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # Pass1!
+       # hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # Pass1!
+        hashed_password=get_password_hash("Pass1!"),
         full_name="Test User",
         role="user",
         is_active=True
@@ -67,7 +69,8 @@ def test_employer(db):
     user = User(
         email="employer@example.com",
         username="testemployer",
-        hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # Pass1!
+        #hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # Pass1!
+        hashed_password=get_password_hash("Pass1!"),
         full_name="Test Employer",
         role="employer",
         is_active=True
@@ -83,7 +86,8 @@ def test_admin(db):
     user = User(
         email="admin@example.com",
         username="testadmin",
-        hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # Pass1!
+        #hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # Pass1!
+        hashed_password=get_password_hash("Pass1!"),
         full_name="Test Admin",
         role="admin",
         is_active=True
@@ -100,6 +104,7 @@ def user_token(client, test_user):
         "/v1/auth/login",
         json={"username": "testuser", "password": "Pass1!"}
     )
+    assert response.status_code == 200, response.text
     return response.json()["access_token"]
 
 
@@ -109,6 +114,7 @@ def employer_token(client, test_employer):
         "/v1/auth/login",
         json={"username": "testemployer", "password": "Pass1!"}
     )
+    assert response.status_code == 200, response.text
     return response.json()["access_token"]
 
 
@@ -118,4 +124,5 @@ def admin_token(client, test_admin):
         "/v1/auth/login",
         json={"username": "testadmin", "password": "Pass1!"}
     )
+    assert response.status_code == 200, response.text
     return response.json()["access_token"]

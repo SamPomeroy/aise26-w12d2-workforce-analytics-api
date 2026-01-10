@@ -12,7 +12,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     """schema for user registration"""
-    password: str = Field(..., min_length=8, max_length=100)
+    password: str = Field(..., min_length=6, max_length=100)
     role: str = Field(default="user", pattern="^(user|employer|admin)$")
     
     @validator('password')

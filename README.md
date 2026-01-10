@@ -203,3 +203,7 @@ MIT
 Sam Pomeroy - Columbia University Applied AI Solutions Engineering
 
 Built as a demonstration of production-ready API development patterns including authentication, authorization, rate limiting, async processing, comprehensive testing, and deployment best practices.
+
+## AI Tool Use Disclosure
+
+I used LLM-based assistants (Claude and ChatGPT) as development support tools for this project. They were primarily used for architectural scaffolding, reviewing patterns, and debugging test failures (particularly around authentication and password hashing). All implementation decisions, code integration, and test design were performed and validated by me.
