@@ -10,3 +10,4 @@ redis>=5.0.0
 httpx
 python-multipart
 python-json-logger
+email-validator
